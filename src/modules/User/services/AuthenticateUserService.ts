@@ -7,6 +7,8 @@ import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 import AppError from 'shared/errors/AppError';
 
+import user_view from '../views/user_view';
+
 interface IRequest {
   email: string;
   password: string;
@@ -40,7 +42,7 @@ class AuthenticateUserService {
     });
 
     return {
-      user,
+      user: user_view.render(user),
       token,
     }
   }
