@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import AuthenticateUserService from 'modules/User/services/AuthenticateUserService';
 
-class UsersController {
+class SessionsController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { email, password } = request.body;
 
@@ -16,4 +16,4 @@ class UsersController {
   }
 }
 
-export default UsersController;
+export default SessionsController;
