@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import CreatePostService from '../services/CreatePostService';
 import UpdatePostService from '../services/UpdatePostService';
+import DeletePostService from '../services/DeletePostService';
 
 import AppError from 'shared/errors/AppError';
 
@@ -25,7 +26,7 @@ class PostController {
   }
 
 	public async update(request: Request, response: Response): Promise<Response> {
-		const { id }: any = request.params;
+		const { id } = request.params;
 		const { title, author, content, description } = request.body;
 
     if (!title || !description || !content || !author) {
@@ -43,6 +44,13 @@ class PostController {
     });
 
 		return response.status(200).json(post);
+	}
+
+	public async delete(request: Request, response: Response): Promise<Response> {
+		const { id } = request.params;
+		const deletePost = new DeletePostService();
+		await deletePost.execute({ id });
+		return response.status(200).json();
 	}
 }
 
