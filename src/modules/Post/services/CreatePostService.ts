@@ -5,7 +5,6 @@ import Post from 'modules/Post/entities/Post';
 import IPost from 'shared/interfaces/IPost';
 
 import AppError from 'shared/errors/AppError';
-import CreateUserService from 'modules/User/services/CreateUserService';
 
 interface IRequest {
   title: string;
