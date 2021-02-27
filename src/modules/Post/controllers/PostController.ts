@@ -3,6 +3,7 @@ import CreatePostService from '../services/CreatePostService';
 import UpdatePostService from '../services/UpdatePostService';
 import DeletePostService from '../services/DeletePostService';
 import ListAllPostsService from '../services/ListAllPostsService';
+import ListNewstsPostsService from '../services/ListNewstsPostsService';
 
 import AppError from 'shared/errors/AppError';
 
@@ -58,6 +59,12 @@ class PostController {
 		const listAllPosts = new ListAllPostsService();
 		const posts = await listAllPosts.execute();
 		return response.status(200).json(posts);
+	}
+
+	public async listNewests(request: Request, response: Response): Promise<Response> {
+		const listNewestsPosts = new ListNewstsPostsService();
+		const newestPosts = await listNewestsPosts.execute();
+		return response.status(200).json(newestPosts);
 	}
 }
 
