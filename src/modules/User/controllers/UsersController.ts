@@ -13,7 +13,7 @@ class UsersController {
       password
     });
 
-    return response.status(200).json(user);
+    return response.status(201).json(user);
   }
 }
 
