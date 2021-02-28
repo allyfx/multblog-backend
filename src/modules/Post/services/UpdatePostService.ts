@@ -5,6 +5,7 @@ import Post from '../entities/Post';
 import AppError from 'shared/errors/AppError';
 
 interface IRequest {
+	user_id: any;
 	id: any;
   title: string;
   description: String;
@@ -13,9 +14,8 @@ interface IRequest {
 }
 
 class UpdatePostService {
-	public async execute({ id, title, description, content, author }: IRequest) {
+	public async execute({ user_id, id, title, description, content, author }: IRequest) {
 		const userById = await User.findById(author);
-
 		const postExists = await Post.findById(id);
 		
     if (!userById) {
@@ -24,6 +24,10 @@ class UpdatePostService {
 		
 		if (!postExists) {
 			throw new AppError('Post does not exists', 404);
+		}
+
+		if (postExists.author.toString() !== user_id) {
+			throw new AppError('User does not own this post', 403);
 		}
 
 		await Post.updateOne({ _id: id }, {

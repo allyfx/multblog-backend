@@ -18,6 +18,7 @@ class PostController {
     const createPost = new CreatePostService();
 
     const post = await createPost.execute({
+			user_id: request.user.id,
       title,
       author,
       content,
@@ -38,6 +39,7 @@ class PostController {
 		const updatePost = new UpdatePostService();
 
 		const post = await updatePost.execute({
+			user_id: request.user.id,
 			id,
       title,
       author,
@@ -51,7 +53,10 @@ class PostController {
 	public async delete(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params;
 		const deletePost = new DeletePostService();
-		await deletePost.execute({ id });
+		await deletePost.execute({
+			user_id: request.user.id,
+			id
+		});
 		return response.status(200).json();
 	}
 
