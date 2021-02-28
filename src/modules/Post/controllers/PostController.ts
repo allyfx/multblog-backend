@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import CreatePostService from '../services/CreatePostService';
 import UpdatePostService from '../services/UpdatePostService';
 import DeletePostService from '../services/DeletePostService';
+import ListAllPostsService from '../services/ListAllPostsService';
+import ListNewstsPostsService from '../services/ListNewstsPostsService';
 
 import AppError from 'shared/errors/AppError';
 
@@ -22,7 +24,7 @@ class PostController {
       description
     });
 
-    return response.status(200).json(post);
+    return response.status(201).json(post);
   }
 
 	public async update(request: Request, response: Response): Promise<Response> {
@@ -51,6 +53,18 @@ class PostController {
 		const deletePost = new DeletePostService();
 		await deletePost.execute({ id });
 		return response.status(200).json();
+	}
+
+	public async list(request: Request, response: Response): Promise<Response> {
+		const listAllPosts = new ListAllPostsService();
+		const posts = await listAllPosts.execute();
+		return response.status(200).json(posts);
+	}
+
+	public async listNewests(request: Request, response: Response): Promise<Response> {
+		const listNewestsPosts = new ListNewstsPostsService();
+		const newestPosts = await listNewestsPosts.execute();
+		return response.status(200).json(newestPosts);
 	}
 }
 
