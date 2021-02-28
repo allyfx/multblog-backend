@@ -11,6 +11,7 @@ const userRouter = Router();
 
 userRouter.post('/create', usersController.create);
 userRouter.post('/authenticate', sessionsController.create);
-userRouter.get('/posts/:id', ensureAuthenticated, usersController.listAllPosts);
+userRouter.get('/list/posts/:id', ensureAuthenticated, usersController.listAllPosts);
+userRouter.get('/post/:id', ensureAuthenticated, usersController.listPost);
 
 export default userRouter;
