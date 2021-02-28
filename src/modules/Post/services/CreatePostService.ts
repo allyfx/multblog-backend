@@ -7,6 +7,7 @@ import IPost from 'shared/interfaces/IPost';
 import AppError from 'shared/errors/AppError';
 
 interface IRequest {
+	user_id: string;
   title: string;
   description: String;
   content: String;
@@ -14,12 +15,16 @@ interface IRequest {
 }
 
 class CreatePostService {
-  public async execute({ title, description, content, author }: IRequest): Promise<IPost> {
+  public async execute({ user_id, title, description, content, author }: IRequest): Promise<IPost> {
     const userById = await User.findById(author);
 
     if (!userById) {
       throw new AppError('User does not exists', 404);
     }
+
+		if (author.toString() !== user_id) {
+			throw new AppError('User does not own this post', 403);
+		}
 
     const newPost = await Post.create({
       title,

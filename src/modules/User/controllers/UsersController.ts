@@ -21,7 +21,7 @@ class UsersController {
 	public async listAllPosts(request: Request, response: Response): Promise<Response> {
 		const id = request.params.id;
 		const listUserPosts = new ListUserPostsService();
-		const posts = await listUserPosts.execute(id);
+		const posts = await listUserPosts.execute(request.user.id,id);
 		return response.status(200).json(posts);
 	}
 
